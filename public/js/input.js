@@ -13,8 +13,8 @@ window.INERTIA_MOMENTUM = window.INERTIA_MOMENTUM || {};
 window.INERTIA_MOMENTUM.input = (function () {
     'use strict';
     var ROTATE_NONE = 0,
-        ROTATE_LEFT = -1,
-        ROTATE_RIGHT = 1,
+        ROTATE_LEFT = 1,
+        ROTATE_RIGHT = -1,
         state = {
             thrust: false,
             rotation: ROTATE_NONE
@@ -24,7 +24,6 @@ window.INERTIA_MOMENTUM.input = (function () {
     function onStateChange() {
         // TODO: Should use an event emitter instead.
         console.log(state);
-        INERTIA_MOMENTUM.canvas.draw();
     }
 
     function thrusting(thrust) {
