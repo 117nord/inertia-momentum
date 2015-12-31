@@ -49,26 +49,26 @@ window.INERTIA_MOMENTUM.input = (function () {
     }
 
     function onKeyDown(event) {
-        switch (event.key) {
-        case 'ArrowUp':
+        switch (event.keyCode) {
+        case 38:
             thrusting(true);
             break;
-        case 'ArrowLeft':
+        case 37:
             rotate(ROTATE_LEFT);
             break;
-        case 'ArrowRight':
+        case 39:
             rotate(ROTATE_RIGHT);
             break;
         }
     }
 
     function onKeyUp(event) {
-        switch (event.key) {
-        case 'ArrowUp':
+        switch (event.keyCode) {
+        case 38:
             thrusting(false);
             break;
-        case 'ArrowLeft':
-        case 'ArrowRight':
+        case 37:
+        case 39:
             rotate(ROTATE_NONE);
             break;
         }
