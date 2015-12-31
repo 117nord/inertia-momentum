@@ -1,0 +1,22 @@
+{
+    "name": "level 0",
+    "width": 640,
+    "height": 480,
+    "startingPosition": [-240, 0],
+    "startingAngle": 0,
+    "items": [
+        {
+            "name": "outer bound",
+            "type": "rectangle",
+            "position": [0, 0],
+            "width": 640,
+            "height": 480
+        }, {
+            "name": "inner bound",
+            "type": "box",
+            "position": [0, 0],
+            "width": 320,
+            "height": 240
+        }
+    ]
+}

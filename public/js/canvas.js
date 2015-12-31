@@ -21,7 +21,8 @@ window.INERTIA_MOMENTUM.canvas = (function () {
             midleft: {x: -15, y: -10},
             midright: {x: 15, y: -10},
             midbottom: {x: 0, y: 20}
-        };
+        },
+        level;
 
     function drawShip(state) {
         ctx.save();
@@ -49,19 +50,50 @@ window.INERTIA_MOMENTUM.canvas = (function () {
             ctx.stroke();
         }
 
-        // bounding circle 
+        // bounding circle
         /*
         ctx.beginPath();
         ctx.strokeStyle = 'rgb(100, 100, 100)';
         ctx.arc(0, 0, 40, 0, 2 * Math.PI, true);
         ctx.stroke();
         */
-        
+
         ctx.restore();
     }
 
-    function init() {
+    function drawRect(ctx, rect) {
+        ctx.save();
+
+        ctx.translate(rect.position[0], rect.position[1]);
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgb(0, 0, 0)';
+        ctx.moveTo(-rect.width / 2, rect.height / 2);
+        ctx.lineTo(rect.width / 2, rect.height / 2);
+        ctx.lineTo(rect.width / 2, -rect.height / 2);
+        ctx.lineTo(-rect.width / 2, -rect.height / 2);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.restore();
+    }
+
+    function drawLine(ctx, line) {
+        ctx.save();
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgb(10, 175, 10)';
+
+        ctx.moveTo(line.p1[0], line.p1[1]);
+        ctx.lineTo(line.p2[0], line.p2[1]);
+        ctx.stroke();
+
+        ctx.restore();
+    }
+    
+    function init(lev) {
         canvas = document.getElementById('gameCanvas');
+        level = lev;
     }
 
     function draw(state) {
@@ -70,25 +102,28 @@ window.INERTIA_MOMENTUM.canvas = (function () {
 
         ctx.save();
 
-        // Draw bounds
-        ctx.beginPath();
-        ctx.strokeStyle = 'rgb(0, 0, 0)';
-        ctx.moveTo(0, 0);
-        ctx.lineTo(canvas.width, 0);
-        ctx.lineTo(canvas.width, canvas.height);
-        ctx.lineTo(0, canvas.height);
-        ctx.closePath();
-        ctx.stroke();
-
-
         // Put the origin at the center of the canvas
         ctx.translate(canvas.width / 2, canvas.height / 2);
-        
+
         // Invert y axix so that positive numbers go up.
         ctx.scale(1, -1);
-        
+
+        // Draw level
+        level.items.forEach(function (item) {
+            switch (item.type) {
+            case 'box':
+            case 'rectangle':
+                drawRect(ctx, item);
+                break;
+                
+            case 'goal':
+                drawLine(ctx, item);
+                break;
+            }
+        });
+
         drawShip(state);
-        
+
         ctx.restore();
     }
 

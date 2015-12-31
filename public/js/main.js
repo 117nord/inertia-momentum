@@ -15,7 +15,35 @@ window.INERTIA_MOMENTUM.main = function () {
 
     var input,
         engine,
-        canvas;
+        canvas,
+        level = {
+            "name": "zero",
+            "width": 640,
+            "height": 480,
+            "startingPosition": [-240, 0],
+            "startingAngle": 0,
+            "items": [
+                {
+                    "name": "outer bound",
+                    "type": "rectangle",
+                    "position": [0, 0],
+                    "width": 640,
+                    "height": 480
+                }, {
+                    "name": "inner bound",
+                    "type": "rectangle",
+                    "position": [0, 0],
+                    "width": 320,
+                    "height": 240
+                },
+                {
+                    "name": "goal",
+                    "type": "goal",
+                    "p1": [160, 0],
+                    "p2": [320, 0]
+                }
+            ]
+        };
 
     function tick(timestamp) {
         var state = input.getCurrentState();
@@ -32,8 +60,8 @@ window.INERTIA_MOMENTUM.main = function () {
         input = INERTIA_MOMENTUM.input;
         canvas = INERTIA_MOMENTUM.canvas;
         engine = INERTIA_MOMENTUM.engine;
-        engine.init(canvasEl.width, canvasEl.height);
-        canvas.init();
+        engine.init(level);
+        canvas.init(level);
         input.start();
         
     }, false);
